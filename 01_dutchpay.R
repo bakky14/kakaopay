@@ -10,9 +10,9 @@ glimpse(users)
 glimpse(dutchpay_claim)
 glimpse(dutchpay_claim_detail)
 # glimpse(a_payment_trx)
-# 1) '´õÄ¡ÆäÀÌ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä·üÀÌ ³ôÀ»¼ö·Ï ´õÄ¡ÆäÀÌ ¼­ºñ½º¸¦ ´õ ¸¹ÀÌ »ç¿ëÇÑ´Ù'
-# ¶ó´Â °¡¼³À» Åë°èÀûÀ¸·Î °ËÁ¤ÇÏ½Ã¿À
-# - ÇØ´ç °¡¼³ °ËÁ¤ ¹æ¹ıÀ» ¼±ÅÃÇÑ ÀÌÀ¯¿Í ÇÔ²² ÀüÃ¼ °ËÁ¤ °úÁ¤À» ±â¼úÇÏ½Ã¿À
+# 1) 'ë”ì¹˜í˜ì´ ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µë¥ ì´ ë†’ì„ìˆ˜ë¡ ë”ì¹˜í˜ì´ ì„œë¹„ìŠ¤ë¥¼ ë” ë§ì´ ì‚¬ìš©í•œë‹¤'
+# ë¼ëŠ” ê°€ì„¤ì„ í†µê³„ì ìœ¼ë¡œ ê²€ì •í•˜ì‹œì˜¤
+# - í•´ë‹¹ ê°€ì„¤ ê²€ì • ë°©ë²•ì„ ì„ íƒí•œ ì´ìœ ì™€ í•¨ê»˜ ì „ì²´ ê²€ì • ê³¼ì •ì„ ê¸°ìˆ í•˜ì‹œì˜¤
 
 dutchpay_claim_total <- left_join(dutchpay_claim, dutchpay_claim_detail, 
                                   by = 'claim_id')
@@ -23,14 +23,14 @@ users_dutchpay_claim_total <- left_join(dutchpay_claim_total, users,
 glimpse(users_dutchpay_claim_total)
 
 
-## ÀÀ´ä·üÀÇ Á¤ÀÇ :
-# ´õÄ¡ÆäÀÌ´Â ÇÑ »ç¶÷ÀÌ ¿©·¯»ç¶÷¿¡°Ô ¿äÃ»ÇÑ´Ù. 
-# ¿äÃ»¹ŞÀº »ç¶÷µé Áß ÀÀ´ä(¼Û±İSEND) ÇÑ ¼ıÀÚ°¡ ¸¹À»¼ö·Ï ÀÀ´ä·üÀÌ ³ô´Ù°í ÇÒ ¼ö ÀÖ´Ù.
+## ì‘ë‹µë¥ ì˜ ì •ì˜ :
+# ë”ì¹˜í˜ì´ëŠ” í•œ ì‚¬ëŒì´ ì—¬ëŸ¬ì‚¬ëŒì—ê²Œ ìš”ì²­í•œë‹¤. 
+# ìš”ì²­ë°›ì€ ì‚¬ëŒë“¤ ì¤‘ ì‘ë‹µ(ì†¡ê¸ˆSEND) í•œ ìˆ«ìê°€ ë§ì„ìˆ˜ë¡ ì‘ë‹µë¥ ì´ ë†’ë‹¤ê³  í•  ìˆ˜ ìˆë‹¤.
 
-# ÀÀ´ä·ü : claim_id´ç statusÀÇ CLAIM °¹¼ö ´ëºñ SEND °¹¼ö ºñÀ²
+# ì‘ë‹µë¥  : claim_idë‹¹ statusì˜ CLAIM ê°¯ìˆ˜ ëŒ€ë¹„ SEND ê°¯ìˆ˜ ë¹„ìœ¨
 
 
-## claim_id´ç statusÀÇ CLAIM °¹¼ö
+## claim_idë‹¹ statusì˜ CLAIM ê°¯ìˆ˜
 users_dutchpay_claim_total %>% 
     group_by(claim_id) %>%
     filter(status == 'CLAIM') %>% 
@@ -38,7 +38,7 @@ users_dutchpay_claim_total %>%
 glimpse(users_dutchpay_claim_count)
 
 
-## claim_id´ç statusÀÇ SEND °¹¼ö
+## claim_idë‹¹ statusì˜ SEND ê°¯ìˆ˜
 users_dutchpay_claim_total %>% 
     group_by(claim_id) %>%
     filter(status == 'SEND') %>% 
@@ -60,12 +60,12 @@ users_dutchpay_claim_send %>%
 glimpse(users_dutchpay_response)
 hist(users_dutchpay_response$response)
 
-## ´õÄ¡ÆäÀÌ ¼­ºñ½º »ç¿ë·®ÀÇ Á¤ÀÇ :
-#  "´õÄ¡ÆäÀÌ ¿äÃ»¿¡ ´ëÇÑ ÀÀ´ä·üÀÌ ³ôÀ»¼ö·Ï ´õÄ¡ÆäÀÌ ¼­ºñ½º¸¦ '´õ ¸¹ÀÌ »ç¿ë'ÇÑ´Ù."
-# °¡¼³ ¹®ÀåÀÇ ¸Æ¶ôÀ» ÆÄ¾ÇÇÏ¸é 'ÀÀ´äÀÌ ¸¹À»¼ö·Ï ¿äÃ»±â´ÉÀ» À» ´õ ¸¹ÀÌ ½ÇÇàÇÑ´Ù'¶ó°í ÇØ¼®ÇÒ ¼ö ÀÖ´Ù. 
-# ¿©±â¼­ÀÇ '»ç¿ë'Àº ¿äÃ»(CLAIM)À» ÀÇ¹ÌÇÑ´Ù.
+## ë”ì¹˜í˜ì´ ì„œë¹„ìŠ¤ ì‚¬ìš©ëŸ‰ì˜ ì •ì˜ :
+#  "ë”ì¹˜í˜ì´ ìš”ì²­ì— ëŒ€í•œ ì‘ë‹µë¥ ì´ ë†’ì„ìˆ˜ë¡ ë”ì¹˜í˜ì´ ì„œë¹„ìŠ¤ë¥¼ 'ë” ë§ì´ ì‚¬ìš©'í•œë‹¤."
+# ê°€ì„¤ ë¬¸ì¥ì˜ ë§¥ë½ì„ íŒŒì•…í•˜ë©´ 'ì‘ë‹µì´ ë§ì„ìˆ˜ë¡ ìš”ì²­ê¸°ëŠ¥ì„ ë” ë§ì´ ì‹¤í–‰í•œë‹¤'ë¼ê³  í•´ì„í•  ìˆ˜ ìˆë‹¤. 
+# ì—¬ê¸°ì„œì˜ 'ì‚¬ìš©'ì€ ìš”ì²­(CLAIM)ì„ ì˜ë¯¸í•œë‹¤.
 
-## »ç¿ë·® : claim_id´ç statusÀÇ CLAIM °¹¼ö
+## ì‚¬ìš©ëŸ‰ : claim_idë‹¹ statusì˜ CLAIM ê°¯ìˆ˜
 
 length(users_dutchpay_claim_total$claim_id)
 length(unique(users_dutchpay_claim_total$claim_id))
@@ -81,12 +81,12 @@ glimpse(claim_response_usage)
 summary(claim_response_usage)
 
 
-## »ó°üºĞ¼®
+## ìƒê´€ë¶„ì„
 hist(claim_response_usage$response)
 hist(claim_response_usage$claim_no)
 plot(claim_response_usage$response, claim_response_usage$claim_no)
 
-# ¿¬¼ÓÇü º¯¼öÀÌ¹Ç·Î ÇÇ¾î½¼ »ó°ü°è¼ö¸¦ ¼±ÅÃÇÏ¿© µÎ º¯¼ö°£ÀÇ ¼±ÇüÀû »ó°ü°ü°è¸¦ °ËÁõÇÑ´Ù.
+# ì—°ì†í˜• ë³€ìˆ˜ì´ë¯€ë¡œ í”¼ì–´ìŠ¨ ìƒê´€ê³„ìˆ˜ë¥¼ ì„ íƒí•˜ì—¬ ë‘ ë³€ìˆ˜ê°„ì˜ ì„ í˜•ì  ìƒê´€ê´€ê³„ë¥¼ ê²€ì¦í•œë‹¤.
 cor.test(claim_response_usage$response, claim_response_usage$claim_no, 
          alternative=c('greater'), method = 'pearson')
 
