@@ -24,18 +24,18 @@ SELECT 		DISTINCT d.claim_user_id AS reward_user_id
 
 FROM 		dutchpay_claim d, 
 			(SELECT * 
-            FROM 	a_payment_trx
+            		FROM 	a_payment_trx
 			WHERE 	transacted_at >= '2019-12-01' AND transacted_at <= '2019-12-31'
 			AND		payment_action_type = 'PAYMENT') p
             
 	LEFT OUTER JOIN (SELECT * 
-					FROM 	dutchpay_claim, 
-							(SELECT * 
-							FROM 	a_payment_trx
-							WHERE 	transacted_at >= '2019-12-01' AND transacted_at <= '2020-02-29'
-							AND		payment_action_type = 'CANCEL') p_cancel) p_CANCEL
+			FROM 	dutchpay_claim, 
+				(SELECT * 
+				FROM 	a_payment_trx
+				WHERE 	transacted_at >= '2019-12-01' AND transacted_at <= '2020-02-29'
+				AND	payment_action_type = 'CANCEL') p_cancel) p_CANCEL
                         
-	ON			p.user_id = p_CANCEL.user_id
+	ON		p.user_id = p_CANCEL.user_id
 	WHERE		p_CANCEL.user_id IS NULL
 
 GROUP BY 	d.claim_user_id
