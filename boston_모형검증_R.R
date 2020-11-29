@@ -1,14 +1,14 @@
 library(tidyverse)
 
-# ÁÖ¾îÁø housing.data·Î ÆÄÀÌ½ã¿¡¼­ csv ÆÄÀÏ Á¦ÀÛÇØ ºÒ·¯¿Í »ç¿ë
+# ì£¼ì–´ì§„ housing.dataë¡œ íŒŒì´ì¬ì—ì„œ csv íŒŒì¼ ì œìž‘í•´ ë¶ˆëŸ¬ì™€ ì‚¬ìš©
 # housing <- read_csv('housing.csv')
 # set.seed(42)
 # sample_num = sample(1:nrow(housing), size = round(0.2 * nrow(housing)))
 # housing_test = housing[ sample_num, ]
 # housing_train = housing[-sample_num, ]
 
-## ÆÄÀÌ½ã¿¡¼­ ¸¸µç ¸ðµ¨°ú µ¿ÀÏÇÑ train, test µ¥ÀÌÅÍ »ç¿ë ÇÊ¿ä!
-## csv·Î Á¦ÀÛÇÑ ÇØ´ç train, test µ¥ÀÌÅÍ¸¦ ºÒ·¯¿Í ¸ðµ¨ÀÇ Åë°è °ËÁõ ÁøÇà
+## íŒŒì´ì¬ì—ì„œ ë§Œë“  ëª¨ë¸ê³¼ ë™ì¼í•œ train, test ë°ì´í„° ì‚¬ìš© í•„ìš”!
+## csvë¡œ ì œìž‘í•œ í•´ë‹¹ train, test ë°ì´í„°ë¥¼ ë¶ˆëŸ¬ì™€ ëª¨ë¸ì˜ í†µê³„ ê²€ì¦ ì§„í–‰
 
 
 housing_train <- read_csv('housing_model_train.csv')
@@ -16,8 +16,7 @@ housing_test <- read_csv('housing_model_test.csv')
 
 glimpse(housing_train)
 
-
-# ÆÄÀÌ½ã ÆÄÀÏ¿¡¼­ ÃÖÁ¾ÀûÀ¸·Î ¼±ÅÃÇÑ º¯¼ö¸¦ »ç¿ëÇØ ¸ðµ¨ ±¸¼º ÈÄ °ËÁõ ½Ç½Ã
+# íŒŒì´ì¬ íŒŒì¼ì—ì„œ ìµœì¢…ì ìœ¼ë¡œ ì„ íƒí•œ ë³€ìˆ˜ë¥¼ ì‚¬ìš©í•´ ëª¨ë¸ êµ¬ì„± í›„ ê²€ì¦ ì‹¤ì‹œ
 # RM         0.404314
 # LSTAT      0.367514
 # DIS        0.084744
@@ -27,27 +26,27 @@ glimpse(housing_train)
 model <- lm(MEDV ~ RM + LSTAT + DIS + NOX + PTRATIO + CRIM, data=housing_train)
 
 summary(model)
-# ¸ðµ¨ ¹× º¯¼ö ÀüºÎ Åë°èÀûÀ¸·Î ¹®Á¦ ¾øÀ½
+# ëª¨ë¸ ë° ë³€ìˆ˜ ì „ë¶€ í†µê³„ì ìœ¼ë¡œ ë¬¸ì œ ì—†ìŒ
 
 plot(model)
-# 1) Residual vs. Fitted : ÀÏÁ¤ÇÑ ±¸Á¶³ª ÆÐÅÏÀÌ º¸ÀÌÁö ¾ÊÀ¸¹Ç·Î µîºÐ»ê¼º ¹®Á¦ ¾øÀ½
-# 2) Normal QQ : Á÷¼±¿¡ °¡±î¿ì¹Ç·Î ¿ÀÂ÷ÀÇ Á¤±ÔºÐÆ÷ °¡Á¤À» ¸¸Á·ÇÔ
-# 3) Scale-Location : ÀûÇÕ°ªÀÌ Áõ°¡ÇÔ¿¡ µû¶ó ³ªÅ¸³ª´Â »ï°¢Çü ÆÐÅÏÀÌ º¸ÀÌÁö ¾ÊÀ¸¹Ç·Î ¹®Á¦ ¾øÀ½
-# 4) Residual-Leverage : 0.5°¡ ³Ñ´Â Á¡ÀÌ ¾øÀ¸¹Ç·Î ¿ª½Ã ¹®Á¦ ¾øÀ½
+# 1) Residual vs. Fitted : ì¼ì •í•œ êµ¬ì¡°ë‚˜ íŒ¨í„´ì´ ë³´ì´ì§€ ì•Šìœ¼ë¯€ë¡œ ë“±ë¶„ì‚°ì„± ë¬¸ì œ ì—†ìŒ
+# 2) Normal QQ : ì§ì„ ì— ê°€ê¹Œìš°ë¯€ë¡œ ì˜¤ì°¨ì˜ ì •ê·œë¶„í¬ ê°€ì •ì„ ë§Œì¡±í•¨
+# 3) Scale-Location : ì í•©ê°’ì´ ì¦ê°€í•¨ì— ë”°ë¼ ë‚˜íƒ€ë‚˜ëŠ” ì‚¼ê°í˜• íŒ¨í„´ì´ ë³´ì´ì§€ ì•Šìœ¼ë¯€ë¡œ ë¬¸ì œ ì—†ìŒ
+# 4) Residual-Leverage : 0.5ê°€ ë„˜ëŠ” ì ì´ ì—†ìœ¼ë¯€ë¡œ ì—­ì‹œ ë¬¸ì œ ì—†ìŒ
 
-## µû¶ó¼­ º» ¸ðµ¨Àº ¼±ÇüÈ¸±ÍºÐ¼®ÀÇ °¡Á¤À» Åë°èÀûÀ¸·Î ¸¸Á·ÇÏ¿© ¹®Á¦ ¾øÀ½
-
-
-
-### Âü°í : p-value¿¡ ÀÇÇÑ º¯¼ö¼±ÅÃ ÀÌ½´
-
-# p-value¿¡ ´ëÇÑ ÀÌ½´ ¹× º» ºÐ¼®¿¡¼­ p-value¿¡ ÀÇÁöÇÏÁö ¾ÊÀ» °ÍÀÓÀº ÆÄÀÌ½ã ºÐ¼®¿¡¼­ »ó¼úÇÏ¿´À½
-# ±×·¯³ª p-value¿¡¸¸ ÀÇÁöÇÒ °æ¿ì ¹ß»ýÇÏ´Â ¹®Á¦Á¡À» °øÀ¯ÇÏ±â À§ÇØ
-# ÀÌÁ¦ºÎÅÍ p-value¿¡ ÀÇÁ¸ÇÑ º¯¼ö ¼±ÅÃÀ» ¿¹½Ã·Î ÁøÇàÇÏ°íÀÚ ÇÔ
+## ë”°ë¼ì„œ ë³¸ ëª¨ë¸ì€ ì„ í˜•íšŒê·€ë¶„ì„ì˜ ê°€ì •ì„ í†µê³„ì ìœ¼ë¡œ ë§Œì¡±í•˜ì—¬ ë¬¸ì œ ì—†ìŒ
 
 
-### ¾Æ·¡ ³»¿ëÀº ÀÌÀü ÁøÇàÇÑ ³»¿ëÀ¸·Î, ÇöÀç »óÈ²°ú´Â ´Ù¸£¹Ç·Î Âü°í¸¸ ºÎÅ¹µå¸³´Ï´Ù
-### p-value ±âÁØÀ¸·Î º¯¼ö ¼±ÅÃÇÒ¶§´Â ÁøÇàÇÒ¶§¸¶´Ù ´Þ¶óÁ®¼­ ÀçÇöÀÌ ¾ÈµÇ³×¿ä.
+
+### ì°¸ê³  : p-valueì— ì˜í•œ ë³€ìˆ˜ì„ íƒ ì´ìŠˆ
+
+# p-valueì— ëŒ€í•œ ì´ìŠˆ ë° ë³¸ ë¶„ì„ì—ì„œ p-valueì— ì˜ì§€í•˜ì§€ ì•Šì„ ê²ƒìž„ì€ íŒŒì´ì¬ ë¶„ì„ì—ì„œ ìƒìˆ í•˜ì˜€ìŒ
+# ê·¸ëŸ¬ë‚˜ p-valueì—ë§Œ ì˜ì§€í•  ê²½ìš° ë°œìƒí•˜ëŠ” ë¬¸ì œì ì„ ê³µìœ í•˜ê¸° ìœ„í•´
+# ì´ì œë¶€í„° p-valueì— ì˜ì¡´í•œ ë³€ìˆ˜ ì„ íƒì„ ì˜ˆì‹œë¡œ ì§„í–‰í•˜ê³ ìž í•¨
+
+
+### ì•„ëž˜ ë‚´ìš©ì€ ì´ì „ ì§„í–‰í•œ ë‚´ìš©ìœ¼ë¡œ, í˜„ìž¬ ìƒí™©ê³¼ëŠ” ë‹¤ë¥´ë¯€ë¡œ ì°¸ê³ ë§Œ ë¶€íƒë“œë¦½ë‹ˆë‹¤
+### p-value ê¸°ì¤€ìœ¼ë¡œ ë³€ìˆ˜ ì„ íƒí• ë•ŒëŠ” ì§„í–‰í• ë•Œë§ˆë‹¤ ë‹¬ë¼ì ¸ì„œ ìž¬í˜„ì´ ì•ˆë˜ë„¤ìš”.
 
 housing <- read_csv('housing.csv')
 set.seed(42)
@@ -58,45 +57,45 @@ housing_train = housing[-sample_num, ]
 
 model <- lm(MEDV ~ RM + LSTAT + PTRATIO + NOX + CRIM + AGE + INDUS + TAX, data=housing_train)
 summary(model)
-## Çö ´Ü°è¿¡¼­, ´Ü¼øÈ÷ p-value¿¡¸¸ ÀÇÁöÇÑ º¯¼ö ¼±ÅÃ¿¡ ÀÇÇÏ¸é RM, LSTAT, AGE¸¸À¸·Î ±¸¼ºÇÏ¿©¾ß ÇÔ
-## ¿ì¼± p-value°¡ °¡Àå Å« TAX Á¦°Å
+## í˜„ ë‹¨ê³„ì—ì„œ, ë‹¨ìˆœížˆ p-valueì—ë§Œ ì˜ì§€í•œ ë³€ìˆ˜ ì„ íƒì— ì˜í•˜ë©´ RM, LSTAT, AGEë§Œìœ¼ë¡œ êµ¬ì„±í•˜ì—¬ì•¼ í•¨
+## ìš°ì„  p-valueê°€ ê°€ìž¥ í° TAX ì œê±°
 
 model1 <- lm(MEDV ~ RM + LSTAT + PTRATIO + NOX + CRIM + AGE + INDUS, data=housing_train)
 summary(model1)
-##p-value°¡ °¡Àå Å« INDUS Á¦°Å
+##p-valueê°€ ê°€ìž¥ í° INDUS ì œê±°
 
 model2 <- lm(MEDV ~ RM + LSTAT + PTRATIO + NOX + CRIM + AGE, data=housing_train)
 summary(model2)
-##p-value°¡ °¡Àå Å« NOX Á¦°Å
+##p-valueê°€ ê°€ìž¥ í° NOX ì œê±°
 
 model3 <- lm(MEDV ~ RM + LSTAT + PTRATIO + CRIM + AGE, data=housing_train)
 summary(model3)
-##p-value°¡ °¡Àå Å« NOX Á¦°Å
+##p-valueê°€ ê°€ìž¥ í° NOX ì œê±°
 
 
 ## MEDV ~ RM + LSTAT + PTRATIO + CRIM + AGE
-# ÁÖÅÃ °¡°ÝÀº Æò±Õ ¹æ °¹¼ö, 1940³â ÀÌÀü¿¡ Áö¾îÁø ÁýµéÀÇ ºñÀ²ÀÌ ³ô¾ÆÁú¼ö·Ï »ó½ÂÇÑ´Ù
-# ÁÖÅÃ °¡°ÝÀº Àú¼Òµæ ÁÖ¹ÎµéÀÇ ºñÀ², ÇÐ»ý-¼±»ý ºñÀ², ¹üÁËÀ²ÀÌ ³ô¾ÆÁú¼ö·Ï ÇÏ¶ôÇÑ´Ù.
+# ì£¼íƒ ê°€ê²©ì€ í‰ê·  ë°© ê°¯ìˆ˜, 1940ë…„ ì´ì „ì— ì§€ì–´ì§„ ì§‘ë“¤ì˜ ë¹„ìœ¨ì´ ë†’ì•„ì§ˆìˆ˜ë¡ ìƒìŠ¹í•œë‹¤
+# ì£¼íƒ ê°€ê²©ì€ ì €ì†Œë“ ì£¼ë¯¼ë“¤ì˜ ë¹„ìœ¨, í•™ìƒ-ì„ ìƒ ë¹„ìœ¨, ë²”ì£„ìœ¨ì´ ë†’ì•„ì§ˆìˆ˜ë¡ í•˜ë½í•œë‹¤.
 
-# ÀÌ·¯ÇÑ °á·ÐÀ» µµÃâÇÏ´Â µ¥´Â Åë°èÀûÀ¸·Î ¹®Á¦°¡ ¾ø´Ù.
-# ±×·¯³ª °­º¯¿¡ ÀÖ´ÂÁö ¿©ºÎ, °í¿ëÁß½ÉÀ¸·ÎºÎÅÍÀÇ °Å¸®, °í¼Óµµ·Î¿¡ÀÇ Á¢±Ù ¿ëÀÌ¼º µî
-# °æÇèÀûÀ¸·Î ¾Ë¼ö ÀÖ´Â ¿ä¼Ò°¡ Áý°ª¿¡ ¹ÌÄ¡´Â ¿µÇâÀ» ¹Ý¿µÇÏÁö ¾ÊÀº ÀÌÀ¯¿¡ ´ëÇØ 
-# °ú¿¬ 'Åë°èÀûÀ¸·Î ¹«ÀÇ¹ÌÇÔ' ÀÌ¶ó´Â ¸»·Î ÇØ°áµÈ´Ù°í ÇÒ ¼ö ÀÖÀ»±î?
+# ì´ëŸ¬í•œ ê²°ë¡ ì„ ë„ì¶œí•˜ëŠ” ë°ëŠ” í†µê³„ì ìœ¼ë¡œ ë¬¸ì œê°€ ì—†ë‹¤.
+# ê·¸ëŸ¬ë‚˜ ê°•ë³€ì— ìžˆëŠ”ì§€ ì—¬ë¶€, ê³ ìš©ì¤‘ì‹¬ìœ¼ë¡œë¶€í„°ì˜ ê±°ë¦¬, ê³ ì†ë„ë¡œì—ì˜ ì ‘ê·¼ ìš©ì´ì„± ë“±
+# ê²½í—˜ì ìœ¼ë¡œ ì•Œìˆ˜ ìžˆëŠ” ìš”ì†Œê°€ ì§‘ê°’ì— ë¯¸ì¹˜ëŠ” ì˜í–¥ì„ ë°˜ì˜í•˜ì§€ ì•Šì€ ì´ìœ ì— ëŒ€í•´ 
+# ê³¼ì—° 'í†µê³„ì ìœ¼ë¡œ ë¬´ì˜ë¯¸í•¨' ì´ë¼ëŠ” ë§ë¡œ í•´ê²°ëœë‹¤ê³  í•  ìˆ˜ ìžˆì„ê¹Œ?
 
-# ºÐ¼®Àº ÆäÀÌÆÛ»óÀÇ ¼ýÀÚ¸¦ ³Ñ¾î, ¿ì¸®°¡ »ç´Â ¼¼»ó°ú ºñÁî´Ï½º¿¡¼­ ÀÎ»çÀÌÆ®¸¦ ¾ò°í
-# ±×¸¦ ÅëÇØ ´õ ÁÁÀº ¼¼»óÀ» ¸¸µé°í ºñÁî´Ï½º¸¦ °³¼±ÇÏ±â À§ÇØ ÇàÇØÁ®¾ß ÇÑ´Ù.
+# ë¶„ì„ì€ íŽ˜ì´í¼ìƒì˜ ìˆ«ìžë¥¼ ë„˜ì–´, ìš°ë¦¬ê°€ ì‚¬ëŠ” ì„¸ìƒê³¼ ë¹„ì¦ˆë‹ˆìŠ¤ì—ì„œ ì¸ì‚¬ì´íŠ¸ë¥¼ ì–»ê³ 
+# ê·¸ë¥¼ í†µí•´ ë” ì¢‹ì€ ì„¸ìƒì„ ë§Œë“¤ê³  ë¹„ì¦ˆë‹ˆìŠ¤ë¥¼ ê°œì„ í•˜ê¸° ìœ„í•´ í–‰í•´ì ¸ì•¼ í•œë‹¤.
 
-# µû¶ó¼­ º» ºÐ¼®¿¡¼­´Â 
-# 1) 'Çö»ó'¿¡ ¿µÇâÀ» ¹ÌÄ¡´Â Áß¿äÇÑ º¯¼ö¸¦ Ã£±â À§ÇØ Æ®¸®±â¹ýÀ» »ç¿ëÇÏ°í
-# 2) ±× °á°ú·Î ±¸¼ºÇÑ ¸ðµ¨À» ÇØ¼®ÇÏ´Âµ¥´Â ¼±ÇüÈ¸±ÍÀÇ ¼³¸í¹æ½ÄÀ» È°¿ëÇÏ´Â
-# 2´Ü°è ¹æ½ÄÀ» Àû¿ëÇÏ¿´´Ù. (ÆÄÀÌ½ã ÆÄÀÏ ÂüÁ¶)
+# ë”°ë¼ì„œ ë³¸ ë¶„ì„ì—ì„œëŠ” 
+# 1) 'í˜„ìƒ'ì— ì˜í–¥ì„ ë¯¸ì¹˜ëŠ” ì¤‘ìš”í•œ ë³€ìˆ˜ë¥¼ ì°¾ê¸° ìœ„í•´ íŠ¸ë¦¬ê¸°ë²•ì„ ì‚¬ìš©í•˜ê³ 
+# 2) ê·¸ ê²°ê³¼ë¡œ êµ¬ì„±í•œ ëª¨ë¸ì„ í•´ì„í•˜ëŠ”ë°ëŠ” ì„ í˜•íšŒê·€ì˜ ì„¤ëª…ë°©ì‹ì„ í™œìš©í•˜ëŠ”
+# 2ë‹¨ê³„ ë°©ì‹ì„ ì ìš©í•˜ì˜€ë‹¤. (íŒŒì´ì¬ íŒŒì¼ ì°¸ì¡°)
 
-# > Âü°íÀÚ·á
-## p-value´Â ¿¬±¸ °¡¼³ÀÌ ÂüÀÏ È®·üÀÌ³ª µ¥ÀÌÅÍ°¡ ¿À·ÎÁö ¿ì¿¬À¸·Î »ý¼ºµÇ¾úÀ» È®·üÀ» ÃøÁ¤ÇÏÁö ¾Ê´Â´Ù.
-## p-value°¡ Æ¯Á¤ ÀÓ°èÁ¡À» Åë°úÇß´Â°¡°¡ ´Üµ¶À¸·Î °úÇÐÀû °á·ÐÀÌ³ª »ç¾÷Àû/Á¤Ã¥Àû °áÁ¤À» ³»¸®´Â ±Ù°Å°¡ µÇ¾î¼­´Â ¾È µÈ´Ù.
-## ÀûÀýÇÑ Ãß·Ð¿¡´Â "¿ÏÀüÇÑ º¸°í¿Í Åõ¸í¼º"ÀÌ ÇÊ¿äÇÏ´Ù.
-## p-value, È¤Àº Åë°èÀû À¯ÀÇ¼ºÀº "È¿°úÀÇ Å©±â"³ª "°á°úÀÇ Áß¿ä¼º"À» ÃøÁ¤ÇÏÁö ¾Ê´Â´Ù.
-## p-value ÀÚÃ¼´Â ¸ðÇüÀÌ³ª °¡¼³¿¡ °ü·ÃÇÑ Áõ°Å¿¡ ´ëÇÑ ÈÇ¸¢ÇÑ Ã´µµ¸¦ Á¦°øÇÏÁö ¾Ê´Â´Ù.
+# > ì°¸ê³ ìžë£Œ
+## p-valueëŠ” ì—°êµ¬ ê°€ì„¤ì´ ì°¸ì¼ í™•ë¥ ì´ë‚˜ ë°ì´í„°ê°€ ì˜¤ë¡œì§€ ìš°ì—°ìœ¼ë¡œ ìƒì„±ë˜ì—ˆì„ í™•ë¥ ì„ ì¸¡ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
+## p-valueê°€ íŠ¹ì • ìž„ê³„ì ì„ í†µê³¼í–ˆëŠ”ê°€ê°€ ë‹¨ë…ìœ¼ë¡œ ê³¼í•™ì  ê²°ë¡ ì´ë‚˜ ì‚¬ì—…ì /ì •ì±…ì  ê²°ì •ì„ ë‚´ë¦¬ëŠ” ê·¼ê±°ê°€ ë˜ì–´ì„œëŠ” ì•ˆ ëœë‹¤.
+## ì ì ˆí•œ ì¶”ë¡ ì—ëŠ” "ì™„ì „í•œ ë³´ê³ ì™€ íˆ¬ëª…ì„±"ì´ í•„ìš”í•˜ë‹¤.
+## p-value, í˜¹ì€ í†µê³„ì  ìœ ì˜ì„±ì€ "íš¨ê³¼ì˜ í¬ê¸°"ë‚˜ "ê²°ê³¼ì˜ ì¤‘ìš”ì„±"ì„ ì¸¡ì •í•˜ì§€ ì•ŠëŠ”ë‹¤.
+## p-value ìžì²´ëŠ” ëª¨í˜•ì´ë‚˜ ê°€ì„¤ì— ê´€ë ¨í•œ ì¦ê±°ì— ëŒ€í•œ í›Œë¥­í•œ ì²™ë„ë¥¼ ì œê³µí•˜ì§€ ì•ŠëŠ”ë‹¤.
 ## https://www.editage.co.kr/insights/is-my-research-significant-why-you-shouldn%E2%80%99t-rely-on-p-values
 
-## (Åë°èÀû À¯ÀÇ¼º°ú °úÇÐÀû, ½ÇÁúÀû, ¶Ç´Â ÀÓ»óÀû À¯ÀÇ¼ºÀº ¼­·Î °°Áö ¾Ê½À´Ï´Ù.)
+## (í†µê³„ì  ìœ ì˜ì„±ê³¼ ê³¼í•™ì , ì‹¤ì§ˆì , ë˜ëŠ” ìž„ìƒì  ìœ ì˜ì„±ì€ ì„œë¡œ ê°™ì§€ ì•ŠìŠµë‹ˆë‹¤.)
