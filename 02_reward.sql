@@ -26,7 +26,7 @@ FROM 		dutchpay_claim d,
 			(SELECT * 
             		FROM 	a_payment_trx
 			WHERE 	transacted_at >= '2019-12-01' AND transacted_at <= '2019-12-31'
-			AND		payment_action_type = 'PAYMENT') p
+			AND	payment_action_type = 'PAYMENT') p
             
 	LEFT OUTER JOIN (SELECT * 
 			FROM 	dutchpay_claim, 
